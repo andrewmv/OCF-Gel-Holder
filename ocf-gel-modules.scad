@@ -34,7 +34,7 @@ module mag_rings() {
     //top magnet ring (closest to build plate)
     mag_inserts(mag_bury);
     // bottom magnet ring (furthest from build plate)
-    if (depth > 15) {
+    if (depth > 10) {
         mag_inserts(depth - mag_hole_depth);
     }
 }

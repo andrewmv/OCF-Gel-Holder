@@ -1,18 +1,21 @@
 include <ocf-gel-modules.scad>
+include <Hexes.scad>
 
 //// USER VARIABLES ////
 //// All values in mm ////
 
 outer_dia = 91; // Outer Diameter
 inner_dia = 79; // Inner Diameter
-depth = 25;     // Total depth (height) of ring
+depth = 13;     // Total depth (height) of ring
 $fn = 50;       // Polygon count of circles
 
-mag_dia = 4.15;    // Diameter dimension of magnets
-mag_depth = 4.0;  // Depth (height) dimenstion of magnets
-//mag_bury = 0.75; // How deep to bury the magnets in the part
-mag_bury = 0;
-mag_count = 12; // Number of magnets around circumference of ring
+nozzle_width = 0.5;
+grid_angle = 20; // Degrees
+
+mag_dia = 4.15;   // Diameter dimension of magnets
+mag_depth = 2.1;  // Depth (height) dimenstion of magnets
+mag_bury = 0;	  // How deep to bury the magnets in the part
+mag_count = 12;   // Number of magnets around circumference of ring
 //mag_tol = 0.25; // Tolerace of magnet inserts (added to size of inserts)
 
 lip_w = 2;  // Width of handle/lip for removal
@@ -20,6 +23,7 @@ lip_h = 2;  // Height of lip
 
 //// COMPUTED VARIABLES - You shouldn't need to touch these ////
 
+hex_r = (depth * tan(grid_angle)) / 2;
 mag_hole_depth = mag_depth + mag_bury;
 mag_degrees = 360 / mag_count;
 ring_center = (inner_dia + ((outer_dia - inner_dia) / 2)) / 2;
@@ -27,3 +31,9 @@ ring_center = (inner_dia + ((outer_dia - inner_dia) / 2)) / 2;
 //// ASSEMBLY - Now render the part with these values ////
 
 asm();
+
+intersection() {
+    translate([-inner_dia/2,-inner_dia/2,0])
+        bounded_hex_lattice(size=[inner_dia,inner_dia,depth], r=hex_r, spacing=nozzle_width, border=0);
+    cylinder(h=depth, r=inner_dia/2);
+}
