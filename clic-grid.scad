@@ -4,9 +4,10 @@ include <Hexes.scad>
 //// USER VARIABLES ////
 //// All values in mm ////
 
-outer_dia = 91; // Outer Diameter
-inner_dia = 79; // Inner Diameter
-depth = 13;     // Total depth (height) of ring
+outer_dia = 70; // Outer Diameter
+inner_dia = 60; // Inner Diameter
+grid_depth = 13;
+depth = grid_depth + 3;     // Total depth (height) of ring
 $fn = 50;       // Polygon count of circles
 
 nozzle_width = 0.5;
@@ -23,7 +24,7 @@ lip_h = 2;  // Height of lip
 
 //// COMPUTED VARIABLES - You shouldn't need to touch these ////
 
-hex_r = (depth * tan(grid_angle)) / 2;
+hex_r = (grid_depth * tan(grid_angle)) / 2;
 mag_hole_depth = mag_depth + mag_bury;
 mag_degrees = 360 / mag_count;
 ring_center = (inner_dia + ((outer_dia - inner_dia) / 2)) / 2;
@@ -34,6 +35,6 @@ asm();
 
 intersection() {
     translate([-inner_dia/2,-inner_dia/2,0])
-        bounded_hex_lattice(size=[inner_dia,inner_dia,depth], r=hex_r, spacing=nozzle_width, border=0);
+        bounded_hex_lattice(size=[inner_dia,inner_dia,grid_depth], r=hex_r, spacing=nozzle_width, border=0);
     cylinder(h=depth, r=inner_dia/2);
 }

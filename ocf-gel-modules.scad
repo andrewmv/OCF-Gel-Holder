@@ -32,20 +32,20 @@ module lip() {
 // Wrapper for magnet inserts
 module mag_rings() {
     //top magnet ring (closest to build plate)
-    mag_inserts(mag_bury);
+    mag_inserts(mag_bury, mag_dia + 0.25); // Allow extra slop for the buildplate layer
     // bottom magnet ring (furthest from build plate)
     if (depth > 10) {
-        mag_inserts(depth - mag_hole_depth);
+        mag_inserts(depth - mag_hole_depth, mag_dia);
     }
 }
 
 // Subtractive circular array of magnet inserts
-module mag_inserts(zpos) {
+module mag_inserts(zpos, d) {
     for (i = [0:1:mag_count]) {
         rotate([0,0,mag_degrees * i]) {
             translate([ring_center,0,zpos]) {
                 linear_extrude(mag_depth) {
-                    circle(r=(mag_dia / 2), $fn=20);
+                    circle(r=(d / 2), $fn=20);
                 }
             }
         }

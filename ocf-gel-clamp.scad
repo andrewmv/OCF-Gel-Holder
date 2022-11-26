@@ -7,12 +7,12 @@ outer_dia = 91; // Outer Diameter
 inner_dia = 79; // Inner Diameter
 $fn = 50;       // Polygon count of circles
 
-mag_dia = 4.15;    // Diameter dimension of magnets
-mag_depth = 3.60;  // Depth (height) dimenstion of magnets
-mag_bury = 0.75;   // How deep to bury the magnets in the part
+mag_dia = 4.40;    // Diameter dimension of magnets
+mag_depth = 2.2;  // Depth (height) dimenstion of magnets
+mag_bury = -0.1;   // How deep to bury the magnets in the part
 mag_count = 12; // Number of magnets around circumference of ring
 
-depth = mag_depth + (2 * mag_bury);     // Total depth (height) of ring
+depth = 10.1; //mag_depth + (2 * mag_bury);     // Total depth (height) of ring
 
 lip_w = 2;  // Width of handle/lip for removal
 lip_h = 2;  // Height of lip
